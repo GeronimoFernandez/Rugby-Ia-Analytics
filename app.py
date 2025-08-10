@@ -1,6 +1,16 @@
+import os
+os.environ["TRANSFORMERS_NO_TORCH_IMPORT"] = "1"
+
+# Instalación dinámica de torch si no está disponible
+try:
+    import torch
+except ImportError:
+    import subprocess
+    subprocess.run(["pip", "install", "torch==2.0.1+cpu", "--extra-index-url", "https://download.pytorch.org/whl/cpu"])
+    import torch
+
 import pandas as pd
 import numpy as np
-import os 
 import torch
 import streamlit as st 
 from sklearn.ensemble import RandomForestClassifier
