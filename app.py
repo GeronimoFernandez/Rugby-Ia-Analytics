@@ -2,7 +2,6 @@ import os
 os.environ["TRANSFORMERS_NO_TORCH_IMPORT"] = "1"
 import pandas as pd
 import numpy as np
-import torch
 import streamlit as st 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
