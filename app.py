@@ -1,14 +1,5 @@
 import os
 os.environ["TRANSFORMERS_NO_TORCH_IMPORT"] = "1"
-
-# Instalación dinámica de torch si no está disponible
-try:
-    import torch
-except ImportError:
-    import subprocess
-    subprocess.run(["pip", "install", "torch==2.0.1+cpu", "--extra-index-url", "https://download.pytorch.org/whl/cpu"])
-    import torch
-
 import pandas as pd
 import numpy as np
 import torch
@@ -57,11 +48,10 @@ def load_nlp_pipeline():
         return pipeline(
             "summarization",
             model="t5-small",  # Modelo ligero y sin requisitos de autenticación
+            framework='tf',
             token=os.getenv("HF_TOKEN") if os.getenv("HF_TOKEN") else None
         )
     except Exception as e:
-        st.warning(f"⚠️ Error técnico: {str(e)}")
-        st.info("Usando modo simplificado (sin IA)")
         return None
 
 # Función para generar predicción
